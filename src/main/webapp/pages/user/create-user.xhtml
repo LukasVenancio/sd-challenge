@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<head>
+    <title>Cadastro de Usuário</title>
+</head>
+
+<h:body>
+    <h1>
+        Cadastro de Usuário
+    </h1>
+
+    <h:form>
+        <h:panelGrid columns="2">
+
+            <h:outputLabel value="Nome:" for="first-name"/>
+            <h:inputText id="first-name" value="#{createUserPageBean.user.firstName}"/>
+
+            <h:outputLabel value="Sobrenome:" for="last-name"/>
+            <h:inputText id="last-name" value="#{createUserPageBean.user.lastName}"/>
+
+            <h:outputLabel value="E-mail:" for="email"/>
+            <h:inputText id="email" value="#{createUserPageBean.user.email}"/>
+
+            <h:outputLabel value="Senha:" for="password"/>
+            <h:inputSecret id="password" value="#{createUserPageBean.user.password}"/>
+
+        </h:panelGrid>
+
+        <h:commandButton value="Cadastrar" action="#{createUserPageBean.execute()}"/>
+
+    </h:form>
+</h:body>
+
+
+</html>
