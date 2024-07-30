@@ -6,21 +6,10 @@
     <persistence-unit name="default" transaction-type="JTA">
         <description>Postgres persistence unit</description>
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>java:jboss/datasources/PostgreSQLDS</jta-data-source>
         <class>com.sd.challenge.infra.postgres.models.UserModel</class>
         <properties>
-            <!-- Driver do PostgreSQL -->
-            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-
-            <!-- URL de conexão com o PostgreSQL -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/challenge_db"/>
-
-            <!-- Usuário e senha para o banco de dados -->
-            <property name="javax.persistence.jdbc.user" value="postgres"/>
-            <property name="javax.persistence.jdbc.password" value="123"/>
-
-            <!-- Configurações específicas do Hibernate -->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="validate"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.archive.autodetection" value="class, hbm"/>

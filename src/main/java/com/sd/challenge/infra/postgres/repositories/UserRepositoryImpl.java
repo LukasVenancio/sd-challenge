@@ -8,6 +8,7 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -22,23 +23,34 @@ public class UserRepositoryImpl implements UserRepository {
     @Inject
     private UserMapperImpl userMapper;
 
+    @Transactional
     public void save(User user) {
-        entityManager.persist(user);
-//       entityManager.persist(userMapper.toModel(user));
+        var model = userMapper.toModel(user);
+        entityManager.persist(model);
     }
 
     public Optional<User> findByEmail(String email) {
-        return Optional.ofNullable(userMapper.toEntity(entityManager.find(UserModel.class, email)));
+        var query = entityManager.createQuery("SELECT u FROM users u WHERE u.email = :email", UserModel.class);
+        query.setParameter("email", email);
+        query.setMaxResults(1);
+
+        try {
+            UserModel user = query.getSingleResult();
+            return Optional.ofNullable(userMapper.toEntity(user));
+        } catch (RuntimeException e) {
+            return Optional.empty();
+        }
     }
 
     public Optional<User> findById(UUID id) {
         return Optional.ofNullable(userMapper.toEntity(entityManager.find(UserModel.class, id)));
     }
 
+    @Transactional
     public void disable(UUID id) {
         var foundUser = findById(id).orElseThrow(RuntimeException::new);
         foundUser.setDisabledAt(LocalDateTime.now());
 
-        entityManager.persist(userMapper.toModel(foundUser));
+        entityManager.merge(userMapper.toModel(foundUser));
     }
 }
