@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="sd-challenge">
+    <output-path>$PROJECT_DIR$/out/artifacts/sd_challenge</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="previous-sd-challenge/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="previous-sd-challenge" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

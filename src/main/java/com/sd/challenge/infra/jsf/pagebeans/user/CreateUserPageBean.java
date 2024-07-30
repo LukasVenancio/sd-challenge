@@ -2,6 +2,7 @@ package com.sd.challenge.infra.jsf.pagebeans.user;
 
 import com.sd.challenge.application.requests.user.CreateUserRequest;
 import com.sd.challenge.application.usecases.user.CreateUserUseCase;
+import jakarta.annotation.ManagedBean;
 import jakarta.enterprise.context.RequestScoped;
 
 import jakarta.inject.Inject;

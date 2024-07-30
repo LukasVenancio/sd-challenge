@@ -8,6 +8,8 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @RequestScoped
 @NoArgsConstructor
 public class CreateUserUseCase {
@@ -17,11 +19,11 @@ public class CreateUserUseCase {
     @Inject
     private UserBoundaryMapper userBoundaryMapper;
 
-    @Transactional
     public void execute(CreateUserRequest createUserRequest) {
         if (this.userRepository.findByEmail(createUserRequest.getEmail()).isPresent()) throw new RuntimeException();
 
         var user = this.userBoundaryMapper.toEntity(createUserRequest);
+        user.setCreatedAt(LocalDateTime.now());
         this.userRepository.save(user);
     }
 }
