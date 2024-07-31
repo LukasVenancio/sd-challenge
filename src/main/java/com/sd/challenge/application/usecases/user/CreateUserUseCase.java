@@ -1,12 +1,14 @@
 package com.sd.challenge.application.usecases.user;
 
+import com.sd.challenge.application.errors.DuplicatedResourceException;
+import com.sd.challenge.application.errors.InternalServerErrorException;
 import com.sd.challenge.application.mappers.UserBoundaryMapper;
 import com.sd.challenge.application.repositories.user.UserRepository;
 import com.sd.challenge.application.requests.user.CreateUserRequest;
 import com.sd.challenge.application.utils.PasswordUtil;
+import com.sd.challenge.domain.entities.User;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 
 import java.security.NoSuchAlgorithmException;
@@ -26,7 +28,7 @@ public class CreateUserUseCase {
     private PasswordUtil passwordUtil;
 
     public void execute(CreateUserRequest createUserRequest) {
-        if (this.userRepository.findByEmail(createUserRequest.getEmail()).isPresent()) throw new RuntimeException();
+        if (this.userRepository.findByEmail(createUserRequest.getEmail()).isPresent()) throw new DuplicatedResourceException(User.class);
 
         var user = this.userBoundaryMapper.toEntity(createUserRequest);
         user.setPassword(this.getEncryptedPassword(createUserRequest.getPassword()));
@@ -34,12 +36,12 @@ public class CreateUserUseCase {
         this.userRepository.save(user);
     }
 
-    private String getEncryptedPassword(String password) {
+    private String getEncryptedPassword(String password) throws InternalServerErrorException {
         var salt = this.passwordUtil.generateSalt();
         try {
             return this.passwordUtil.encrypt(password,salt);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            throw new RuntimeException(e);
+            throw new InternalServerErrorException();
         }
     }
 }
