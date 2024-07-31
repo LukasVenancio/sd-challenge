@@ -6,34 +6,36 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <head>
-    <title>Cadastro de Usuário</title>
+    <title>Sign Up</title>
 </head>
 
 <h:body>
     <h1>
-        Cadastro de Usuário
+        Sign Up
     </h1>
 
     <h:form>
         <h:panelGrid columns="2">
 
-            <h:outputLabel value="Nome:" for="first-name"/>
-            <h:inputText id="first-name" value="#{createUserPageBean.user.firstName}"/>
+            <h:outputLabel value="First Name:" for="first-name"/>
+            <h:inputText id="first-name" value="#{createUserPageBean.user.firstName}" required="true"/>
 
-            <h:outputLabel value="Sobrenome:" for="last-name"/>
-            <h:inputText id="last-name" value="#{createUserPageBean.user.lastName}"/>
+            <h:outputLabel value="Last Name:" for="last-name"/>
+            <h:inputText id="last-name" value="#{createUserPageBean.user.lastName}" required="true"/>
 
-            <h:outputLabel value="E-mail:" for="email"/>
-            <h:inputText id="email" value="#{createUserPageBean.user.email}"/>
+            <h:outputLabel value="Email:" for="email"/>
+            <h:inputText id="email" value="#{createUserPageBean.user.email}" required="true"/>
 
-            <h:outputLabel value="Senha:" for="password"/>
-            <h:inputSecret id="password" value="#{createUserPageBean.user.password}"/>
+            <h:outputLabel value="Password:" for="password"/>
+            <h:inputSecret id="password" value="#{createUserPageBean.user.password}" required="true"/>
 
         </h:panelGrid>
 
-        <h:commandButton value="Cadastrar" action="#{createUserPageBean.execute()}"/>
+        <h:commandButton value="Create account" action="#{createUserPageBean.execute()}"/>
 
     </h:form>
+
+    <h:messages/>
 </h:body>
 
 
