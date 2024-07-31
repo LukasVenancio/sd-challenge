@@ -15,19 +15,23 @@
     </h1>
 
     <h:form>
-        <h:panelGrid columns="2">
+        <h:panelGrid columns="3">
 
             <h:outputLabel value="First Name:" for="first-name"/>
             <h:inputText id="first-name" value="#{createUserPageBean.user.firstName}" required="true"/>
+            <h:message for="first-name"/>
 
             <h:outputLabel value="Last Name:" for="last-name"/>
             <h:inputText id="last-name" value="#{createUserPageBean.user.lastName}" required="true"/>
+            <h:message for="last-name"/>
 
             <h:outputLabel value="Email:" for="email"/>
             <h:inputText id="email" value="#{createUserPageBean.user.email}" required="true"/>
+            <h:message for="email"/>
 
             <h:outputLabel value="Password:" for="password"/>
             <h:inputSecret id="password" value="#{createUserPageBean.user.password}" required="true"/>
+            <h:message for="password"/>
 
         </h:panelGrid>
 
