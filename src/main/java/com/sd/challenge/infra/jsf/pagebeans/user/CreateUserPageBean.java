@@ -2,9 +2,10 @@ package com.sd.challenge.infra.jsf.pagebeans.user;
 
 import com.sd.challenge.application.requests.user.CreateUserRequest;
 import com.sd.challenge.application.usecases.user.CreateUserUseCase;
-import jakarta.annotation.ManagedBean;
 import jakarta.enterprise.context.RequestScoped;
 
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
@@ -20,8 +21,12 @@ public class CreateUserPageBean {
     @Inject
     private CreateUserUseCase createUserUseCase;
 
-    public void execute(){
-        createUserUseCase.execute(user);
-        System.out.println(user.getEmail());
+    @Inject
+    private FacesContext facesContext;
+
+    public void execute() {
+        this.createUserUseCase.execute(user);
+        facesContext.addMessage(null, new FacesMessage("Account created successfully!"));
+        this.user = new CreateUserRequest();
     }
 }

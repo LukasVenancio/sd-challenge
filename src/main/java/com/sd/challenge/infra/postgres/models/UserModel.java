@@ -28,7 +28,7 @@ public class UserModel {
     @Column(length = 360, unique = true)
     private String email;
 
-    @Column(length = 60, nullable = false)
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
